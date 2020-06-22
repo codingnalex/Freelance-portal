@@ -1,0 +1,261 @@
+#blockMyVideo {
+    display: inline-block;
+    width: 100%;
+	position: relative;
+}
+#blockMyVideo h2 {
+    margin-bottom: 15px;
+}
+.vidoe_container {
+    padding-left: 0;
+}
+.vidoe_container img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+}
+.vidoe_container video {
+    width: 100%;
+}
+.vidoe_info {
+    padding-right: 0;
+    position: relative;
+    height: 420px;
+    padding-left: 35px;
+}
+.vidoe_info h3 {
+    font-size: 21px;
+    color: #233342;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+}
+.vidoe_info div {
+    display: inline-block;
+    width: 100%;
+    float: left;
+    margin-bottom: 35px;
+}
+.vidoe_info div span:nth-child(1) {
+    display: inline-block;
+    float: left;
+    width: 37%;
+}
+.vidoe_info div span:nth-child(2) {
+    display: inline-block;
+    float: right;
+	text-align: left;
+    width: 63%;
+}
+.vidoe_info .btn_group_video {
+    position: absolute;
+    left: 35px;
+    bottom: 0;
+    margin-bottom: 0;
+}
+.btn_group_video a {
+    border-color: #233342;
+    color: #233342;
+    margin-right: 50px;
+}
+#ctn-edit-video {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+#video_form {
+    width: 80%;
+    display: inline-block;
+}
+.video_up label {
+    display: inline-block;
+    width: 100%;
+}
+.video_up input {
+    position: absolute;
+	cursor: pointer;
+    width: 140px;
+    height: 45px;
+    z-index: 1;
+    opacity: 0;
+}
+.profile-video-upload {
+    margin-right: 50px;
+}
+#list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+.spinner-border {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    vertical-align: text-bottom;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spinner-border .75s linear infinite;
+    animation: spinner-border .75s linear infinite;
+    color: #24346d;
+}
+.spinner-border.text-info {
+    position: absolute;
+    top: 33%;
+    left: 48%;
+    z-index: 2;
+}
+@keyframes spinner-border{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+.overlay {
+    content: '';
+    background: rgba(44, 62, 80, 0.2);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+.sizefile {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    margin-top: 5px;
+}
+#list {
+    width: 100%;
+    display: inline-block;
+}
+/*------------------------*/
+#freelancerSelectmultiple_chosen {
+    border: none;
+}
+.freelancer-save {
+    display: inline-block;
+    float: right;
+    margin-top: 35px;
+}
+.freelancermultiple span {
+    display: inline-block;
+    float: left;
+}
+/*--------TIME------*/
+#workspace-time h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+	margin-top: -40px;
+}
+.workspace-time.fade {
+    opacity: 1;
+}
+.workspace-time {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+#add_time textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    font-size: 14px;
+	border: 1px solid #dbdbdb;
+    border-radius: 4px;
+	margin-top: 5px;
+	font-weight: 500;
+}
+#add_time {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+#add_time #time_project {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 5px;
+	padding: 10px;
+	font-weight: 500;
+}
+#add_time label {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+#add_time .fre-btn {
+    float: right;
+    display: inline-block;
+    max-width: 85px;
+    margin-top: 10px;
+}
+.added_time p {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+}
+.added_time span.time {
+    display: inline;
+    float: left;
+    width: 55px;
+}
+.added_time span.paytime {
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    top: 1px;
+}
+.added_time .paytime.paid {
+    color: #1fbdbd;
+}
+.added_time .paytime.unpaid {
+    color: red;
+}
+.added_time h3 {
+    margin: 5px 0;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.added_time {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    margin-bottom: 40px;
+}
+#workspace-files {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.fre-site-logo {
+    padding: 0px 0!important;
+    margin-right: 25px!important;
+}
+.fre-site-logo svg {
+    display: inline-block;
+    overflow: initial;
+    width: 210px;
+}
+.fre-footer-logo svg {
+    width: 140px;
+    margin-top: -13px;
+}
+@media only screen and (min-width : 320px) and (max-width : 767px) {
+.fre-hamburger {
+    padding-top: 13px;
+}
+.fre-site-logo {
+    padding: 10px 0!important;
+    margin-right: 0px!important;
+}
+.fre-site-logo svg {
+    display: inline-block;
+    overflow: initial;
+    width: 160px;
+}
+}
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+.fre-hamburger {
+    padding-top: 25px;
+}
+}
