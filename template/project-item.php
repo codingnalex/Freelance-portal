@@ -15,6 +15,8 @@ $bid_accepted    = $convert->accepted;
 $project_status  = $convert->post_status;
 
 $profile_id   = get_user_meta( $post->post_author, 'user_profile_id', true );
+$user_location   = get_user_meta( $post->post_author, 'user_location', true );
+$user_ipadr   = get_user_meta( $post->post_author, 'user_ipadr', true );
 $project_link = get_permalink( $post->ID );
 $currency     = ae_get_option( 'currency', array( 'align' => 'left', 'code' => 'USD', 'icon' => '$' ) );
 $avg          = 0;
@@ -99,9 +101,16 @@ if ( is_user_logged_in() && ( ( fre_share_role() || $user_role == FREELANCER ) )
 					}
 					?>
 				</div>
+				<?php
+				$ip = $user_ipadr;
+				$ipInfo = file_get_contents('http://ip-api.com/json/' . $ip);
+				$ipInfo = json_decode($ipInfo);
+				$timezone = $ipInfo->timezone;
+				date_default_timezone_set($timezone);
+				?>
 				<div class="sbtl_pr noborder">
 					<p><?php _e('Employer Information', ET_DOMAIN);?></p>
-					<span><i class="fa fa-map-marker" aria-hidden="true"></i>United Arab Emirates, Dubai 06:09 pm</span>
+					<span><i class="fa fa-map-marker" aria-hidden="true"></i><?php if($user_location) { echo $user_location; } ?>  <?php echo date('g:i a'); ?></span>
 				</div>
 			</div>
 		</div>

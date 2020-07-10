@@ -109,10 +109,31 @@
 								<div class="err_radio" style="display: none;"><?php _e('This select is required.', ET_DOMAIN);?></div>
 							</fieldset>
 						</div>
-						<!--<span class="orang empty"><?php // _e('Reuse a previous job post', ET_DOMAIN);?></span>-->
-						<!--<div class="fre-input-field project-title">
-							<input class="input-item text-field" id="fre-project-title" placeholder="<?php // _e('Project Title Here', ET_DOMAIN);?>" type="text" name="post_title">
-						</div>-->
+						<span class="orang empty"><?php _e('Reuse a previous job post', ET_DOMAIN);?></span>
+						<div class="fre-input-field project-title">
+							<?php
+							$user_ID = get_current_user_id();
+							
+							$my_project = new WP_Query;
+							
+							$project = $my_project->query( array(
+								'posts_per_page' => -1,
+								'post_type' => 'project',
+								'author' => $user_ID
+							) );
+							
+							?>
+							<select id="fre-project-name" class="fre-chosen-single" name="project_name[]" data-placeholder="<?php _e('Project Title Here', ET_DOMAIN);?>" data-chosen-width="100%" data-chosen-disable-search="false">
+								<option value=""><?php _e('Project Title Here', ET_DOMAIN);?></option>
+								<?php
+								foreach( $project as $prj ){
+									?>
+								<option data-prtitle="<?php echo esc_html( $prj->post_title ); ?>" data-activelimit="<?php echo esc_html( $prj->et_activelimit ); ?>" data-budget="<?php echo esc_html( $prj->et_budget ); ?>" data-groupseejob="<?php echo esc_html( $prj->et_group_see_job ); ?>" data-freelancerselect="<?php echo esc_html( $prj->et_freelancerselect ); ?>" data-groupwork="<?php echo esc_html( $prj->et_groupwork ); ?>" data-content="<?php echo $prj->post_content; ?>">
+									<?php echo esc_html( $prj->post_title ); ?>
+								</option>
+								<?php } ?>
+							</select>
+						</div>
 					</div>
 					<div class="button_step">
 						<p class="cancel first_btn"><?php _e('CANCEL', ET_DOMAIN);?></p>
@@ -128,9 +149,6 @@
 						<div class="fre-input-field project-name">
 							<input class="input-item text-field" id="fre-project-title" type="text" name="post_title">
 						</div>
-						<!--<div class="fre-input-field project-name">
-							<input class="input-item text-field" id="fre-project-name" type="text" name="project_name">
-						</div>-->
 						<div class="fre-input-field">
 							<label class="fre-field-title" for="project_category"><?php _e('Select a job category', ET_DOMAIN);?></label>
 							<span><?php _e("Let's categorize your job, which helps us personalize your job details and match your job to relevant freelancers and agencies.", ET_DOMAIN);?></span>

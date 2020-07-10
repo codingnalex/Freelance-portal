@@ -410,6 +410,7 @@ function complform(){
 	$username_user = $_REQUEST['username_user'];
 	$user_role = $_REQUEST['user_role'];
 	$user_email = $_REQUEST['user_email'];
+	$user_ipadr = $_REQUEST['user_ipadr'];
 	
 	$user = get_user_by('email', $user_email);
 	
@@ -433,6 +434,26 @@ function complform(){
 		wp_update_user( $userdata );
 		
 		wp_set_password($pass_user, $user->ID);
+		
+		add_user_meta( $user->ID, 'user_location', $location_user, true );
+		add_user_meta( $user->ID, 'user_ipadr', $user_ipadr, true );
+		add_user_meta( $user->ID, 'user_customrole', $user_role, true );
+		
+		/*------LOGIN USER---------*/
+		$creds = array();
+		$creds['user_login'] = $user_email;
+		$creds['user_password'] = $pass_user;
+		$creds['remember'] = true;
+
+//		$user = wp_signon( $creds, false );
+//
+//		if ( is_wp_error($user) ) {
+//			echo $user->get_error_message();
+//		}
+		
+//		wp_set_auth_cookie($user->ID);
+		/*-------------------*/
+		
 		
 		$thm  = 'Registration is complete.';
 		$thm  = "=?utf-8?b?". base64_encode($thm) ."?=";
@@ -534,8 +555,9 @@ table p {
 		$headers .= "From: VPM <".$blogemail.">" . "\r\n";
 
 		wp_mail($mail_to, $thm, $msg, $headers);
-		
+
 		$response = 'Done';
+
 		
     } else {
 		  $response = 'This email already exists.';
@@ -543,9 +565,80 @@ table p {
 
     if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
         echo $response;
+		wp_set_auth_cookie($user->ID);
         wp_die();
     }
 }
 
 add_action('wp_ajax_nopriv_ajax_complform', 'complform' );
 add_action('wp_ajax_ajax_complform', 'complform' );
+
+
+/*-------------NOT FREELANCER----------*/
+function notfreelancer(){
+	
+	$response = '';
+	
+	$current_user = wp_get_current_user();
+	
+	if($current_user->user_customrole == 'freelancer') {
+		
+		$userdata = array(
+			'ID'      		  => $current_user->ID,
+			'role'            => 'employer',
+		);
+
+		wp_update_user( $userdata );
+		update_user_meta($current_user->ID, 'user_customrole', 'employer');
+	
+		
+		$response = 'Done';
+
+		
+    }
+	
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+        echo $response;
+        wp_die();
+    }
+}
+
+add_action('wp_ajax_nopriv_ajax_notfreelancer', 'notfreelancer' );
+add_action('wp_ajax_ajax_notfreelancer', 'notfreelancer' );
+
+/*-------------CONTINUE----------*/
+function continueform(){
+	
+	$response = '';
+	
+	$current_user = wp_get_current_user();
+	
+	if($current_user->user_customrole == 'freelancer') {
+
+		update_user_meta($current_user->ID, 'user_customrole', '');
+	
+		
+		$response = 'Done';
+
+		
+    }
+	
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+        echo $response;
+        wp_die();
+    }
+}
+
+add_action('wp_ajax_nopriv_ajax_continueform', 'continueform' );
+add_action('wp_ajax_ajax_continueform', 'continueform' );
+
+/*-------------*/
+
+add_filter( 'excerpt_length', function(){
+	return 30;
+} );
+add_filter( 'excerpt_more', 'new_excerpt_more' );
+function new_excerpt_more( $more ){
+	global $post;
+	return '<a href="'. get_permalink($post) . '">Read more >></a>';
+}

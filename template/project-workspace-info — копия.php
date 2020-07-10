@@ -27,18 +27,6 @@ $comment_for_employer   = get_comments( array(
 	'post_id' => get_the_ID()
 ) );
 
-
-$attachment = get_children( array(
-	'numberposts' => - 1,
-	'order'       => 'ASC',
-	'post_parent' => $post->ID,
-	'post_type'   => 'attachment'
-), OBJECT );
-
-$user_location   = get_user_meta( $post->post_author, 'user_location', true );
-$user_ipadr   = get_user_meta( $post->post_author, 'user_ipadr', true );
-
-
 $freelancer_info = get_userdata($bid_accepted_author);
 $ae_users  = AE_Users::get_instance();
 $freelancer_data = $ae_users->convert( $freelancer_info->data );
@@ -74,38 +62,32 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 <div class="project-detail-box custom_detail_box_top">
     <div class="project-detail-info">
         <div class="row">
-            <div class="col-lg-9 col-md-8">
-				<div class="top_info_user">
-					<div class="avatar_user">
-						<?php if ( fre_share_role() || $role == FREELANCER ) { ?>
-						<span class="employer-avatar-review"><?php echo $convert->et_avatar; ?></span>
-						<?php } ?>
-						<?php if ( fre_share_role() || $role == EMPLOYER ) { ?>
-						<span class="employer-avatar-review"><?php echo $freelancer_data->avatar; ?></span>
-						<?php } ?>
-					</div>
-					<div class="last_first_user">
-						<?php 
-						$cur_user_id = get_current_user_id(); 
-						$user_info = get_userdata($cur_user_id);
-						?>
+            <div class="col-lg-8 col-md-7">
+                <h1 class="project-detail-title"><a href="<?php echo $project_link; ?>"><?php the_title(); ?></a></h1>
+                <ul class="project-bid-info-list">
+                    <li>
 						<?php if ( ( fre_share_role() || $role == FREELANCER ) && $user_ID != $project->post_author ) { ?>
-                            <a href="<?php echo $convert->author_url; ?>" target="_blank"><p><?php echo $user_info->first_name; ?> <?php echo $user_info->last_name; ?></p></a>
+                            <span><?php _e( 'Employer', ET_DOMAIN ); ?></span>
+                            <a href="<?php echo $convert->author_url; ?>" target="_blank"><span><?php echo $convert->author_name; ?></span></a>
 						<?php } else if ( ( fre_share_role() || $role == EMPLOYER ) && $user_ID == $project->post_author ) { ?>
-                            <a href="<?php echo $freelancer_data->author_url; ?>" target="_blank"><p><?php echo $user_info->first_name; ?> <?php echo $user_info->last_name; ?></p></a>
+                            <span><?php _e( 'Freelancer', ET_DOMAIN ); ?></span>
+                            <a href="<?php echo $freelancer_data->author_url; ?>" target="_blank"><span><?php echo the_author_meta( 'display_name', $profile_id ); ?></span></a>
 						<?php } ?>
-						<?php
-						$ip = $user_ipadr;
-						$ipInfo = file_get_contents('http://ip-api.com/json/' . $ip);
-						$ipInfo = json_decode($ipInfo);
-						$timezone = $ipInfo->timezone;
-						date_default_timezone_set($timezone);
-						?>
-						<p class="us_loc_inf"><span class="locat_user"><?php if($user_location) { echo $user_location; } ?></span><span> - <?php echo date('g:i a'); ?> Local Time</span></p>
-					</div>
-				</div>
+                    </li>
+                    <li>
+                        <span><?php _e( 'Winning Bid', ET_DOMAIN ); ?></span>
+                        <span><?php echo $project->bid_budget_text; ?></span>
+                    </li>
+                    <li>
+                        <span><?php // _e( 'Deadline', ET_DOMAIN ); ?></span>
+                        <!--<span><?php //echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span> !-->
+                        <span><?php // echo date_i18n("F j, Y", strtotime( $project->project_deadline ) ) ;; ?></span>
+
+                    </li>
+                </ul>
             </div>
-            <div class="col-lg-3 col-md-4">
+            <div class="col-lg-4 col-md-5">
+                <p class="project-detail-posted"><?php printf( __( 'Posted on %s', ET_DOMAIN ), $project->post_date ); ?></p>
                 <span class="project-detail-status">
                     <?php
                     $status_arr = array(
@@ -147,80 +129,3 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
         </div>
     </div>
 </div>
-
-
-<div class="right_progect project_cuctom_work">
-		<div class="content_dop">
-			<?php
-			$progect_freelancer = get_user_meta( $project->et_freelancerselect);
-			$postID = get_the_ID();
-			?>
-			<?php if($progect_freelancer) { ?>
-				<div class="sbtl_pr slect_fr">
-					<p><?php _e( 'Selected Freelancers', ET_DOMAIN ); ?></p>
-					<span><?php echo $progect_freelancer['first_name'][0] . ' ' .$progect_freelancer['last_name'][0]; ?></span>
-					<?php
-					$selectFree = get_post_meta($postID, 'freelancerselectmultiple', true);
-					$nameFreelancer = get_users( [
-						'include' => $selectFree,
-					] );
-					if($selectFree) {
-					foreach( $nameFreelancer as $user ) {
-					?>
-						<span><?php echo  ', ' . $user->first_name . ' ' . $user->last_name; ?></span>
-						<?php } ?>
-					<?php } ?>
-				</div>
-			<?php } ?>
-			<div class="sbtl_pr short">
-				<p><?php _e('Short Term Work', ET_DOMAIN);?></p>
-				<span>
-					<?php if($project->et_groupwork == 'les') { ?>
-						<?php _e('Less than 40 hrs/week', ET_DOMAIN);?>
-					<?php } else { ?>
-						<?php _e('More than 40 hrs/week', ET_DOMAIN);?>
-					<?php } ?>
-				</span>
-			</div>
-			<div class="sbtl_pr ctpr">
-				<p><?php _e('Category', ET_DOMAIN);?></p>
-				<?php
-				$cur_terms = get_the_terms( $post->ID, 'project_category' );
-				if( is_array( $cur_terms ) ){
-					foreach( $cur_terms as $cur_term ){
-						echo '<a href="http://staging2.virtualpmsolutions.com/projects/?category_project='.$cur_term->slug.'">'. $cur_term->name .'</a>';
-					}
-				}
-				?>
-			</div>
-			<div class="sbtl_pr work_r_bl">
-				<p><?php _e('Project Title', ET_DOMAIN);?></p>
-				<span><?php the_title(); ?></span>
-			</div>
-			<div class="sbtl_pr work_r_bl">
-				<p><?php _e('Description', ET_DOMAIN);?></p>
-				<span><?php the_excerpt(); ?></span>
-			</div>
-			<div class="sbtl_pr work_r_bl">
-				<p><?php _e( 'Attachments', ET_DOMAIN ); ?></p>
-				<?php
-				if ( ! empty( $attachment ) ) {
-					echo '<ul class="project-detail-attach">';
-					foreach ( $attachment as $key => $att ) {
-						$file_type = wp_check_filetype( $att->post_title, array(
-								'jpg'  => 'image/jpeg',
-								'jpeg' => 'image/jpeg',
-								'gif'  => 'image/gif',
-								'png'  => 'image/png',
-								'bmp'  => 'image/bmp'
-							)
-						);
-						echo '<li><a href="' . $att->guid . '"><i class="fa fa-paperclip" aria-hidden="true"></i>' . $att->post_title . '</a></li>';
-					}
-					echo '</ul>';
-				}
-				?>
-				<span class="project-detail-posted"><?php printf( __( 'Posted on %s', ET_DOMAIN ), $project->post_date ); ?></span>
-			</div>
-		</div>
-	</div>

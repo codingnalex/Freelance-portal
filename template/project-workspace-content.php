@@ -92,29 +92,80 @@ $query = new WP_Query( $args );
         display: block;
     }
 </style>
+<div class="tabs_workspace">
+    <div class="tabs">
+        <span class="tab"><?php _e( 'Time Track', ET_DOMAIN ); ?></span>
+        <span class="tab"><?php _e( 'Messages & Files', ET_DOMAIN ); ?></span>       
+    </div>
+    <div class="tab_content">
+        <div class="tab_item">
+			<div class="workspace-files-wrap">
+				<div id="workspace-time" class="workspace-time tab-pane fade">
+					<?php 
+					global $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
+					$user_role = ae_user_role( $current_user->ID );
+					$post_object    = $ae_post_factory->get( PROJECT );
+					$convert        = $project = $post_object->convert( $post );
+					$project_status = $project->post_status;
+					if($project_status == 'close') {
+					if ( fre_share_role() || $user_role == FREELANCER ) { ?>
+					<h2 class="workspace-title"><span>+</span> <?php echo __( "Add manual time", ET_DOMAIN ); ?></h2>
+					<form id="add_time" novalidate="" enctype="multipart/form-data">
+						<?php 
+						$postID = get_the_ID();
+						?>
+						<div class="freelancer-save">
+							<input type="hidden" name="id_project" id="id_project" value="<?php echo $postID; ?>">
+							<label class="fre-field-title">
+								<p><?php _e('hh.mm', ET_DOMAIN);?></p>
+								<input type="number" name="time_project" id="time_project" required>
+							</label>
+							<input type="submit" class="fre-normal-btn fre-btn" name="" style="width: 100%" value="<?php _e('Add', ET_DOMAIN);?>">
+						</div>
+					</form>
+					<?php } ?>
+					<?php } ?>
+					<?php 
+					$postID = get_the_ID();
+					$addTimeDate = get_post_meta( $postID, 'date_time_project');
+					if($addTimeDate) { 
+					?>
+					<div class="added_time">
+						<h3 class="workspace-title"><?php echo __( "Project added time", ET_DOMAIN ); ?></h3>
+						<?php 
+						if($addTimeDate) {
+							foreach ( $addTimeDate as $key => $value ) {
+							$time = stristr($value, "|");
+							$time=str_replace('|','',$time);
+							$time = stristr($time, "-", true);
+							$timeDigit = $time;
+							$timePay = stristr($value, "-");
+							?>
+								<?php if($timePay[1] == 'U') { ?>
+								<p><span class="time"><?php echo $time; ?>/h</span> - <span class="paytime unpaid"><?php _e('Not paid', ET_DOMAIN);?></span></p>
+								<?php } elseif($timePay[1] == 'P') { ?>
+								<p><span class="time"><?php echo $time; ?>/h</span> - <span class="paytime paid"><?php _e('Paid', ET_DOMAIN);?></span></p>
+								<?php } ?>
+							<?php } ?>
+						<?php } ?>
+					</div>
+					<?php } ?>
+				</div>
 
-<div class="workspace-project-box">
-    <ul class="nav nav-tabs nav-tabs-workspace hidden-lg hidden-md" role="tablist">
-        <li class="active"><a href="#workspace-conversation" data-group="conversation" data-toggle="tab"
-                              role="tab"><span><?php _e( 'Conversation', ET_DOMAIN ); ?></span></a></li>
-		<?php if ( function_exists( 'ae_query_milestone' ) && $query->have_posts() ) { ?>
-            <li class="next"><a href="#workspace-milestone" data-group="files" data-toggle="tab"
-                                role="tab"><span><?php _e( 'Milestones', ET_DOMAIN ); ?></span></a></li>
-            <li><a href="#workspace-files" data-group="files" data-toggle="tab"
-                   role="tab"><span><?php _e( 'Project files', ET_DOMAIN ); ?></span></a>
-            </li>
-		<?php } else { ?>
-            <li class="next"><a href="#workspace-files" data-group="files" data-toggle="tab"
-                                role="tab"><span><?php _e( 'Project files', ET_DOMAIN ); ?></span></a>
-            </li>
-		<?php } ?>
+				<?php
+				if ( function_exists( 'ae_query_milestone' ) && $query->have_posts() ) { ?>
+                    <div id="workspace-milestone" class="workspace-milestone tab-pane fade">
+                        <h2 class="workspace-title"><?php echo __( "Project milestones", ET_DOMAIN ); ?></h2>
+						<?php do_action( 'after_sidebar_single_project_workspace', $post ); ?>
+                    </div>
+				<?php } ?>
 
-    </ul>
-    <div class="row">
-        <div class="col-md-8">
-            <div id="workspace-conversation"
+            </div>
+		
+		</div>
+        <div class="tab_item">
+			<div id="workspace-conversation"
                  class="project-workplace-details workplace-details workspace-conversation tab-pane fade in active">
-                <h2 class="workspace-title"><?php _e( 'Conversation', ET_DOMAIN ); ?></h2>
                 <div class="message-container">
                     <div class="list-chat-work-place-wrap fre-conversation-wrap fre-conversation">
                         <ul class="fre-conversation-list list-chat-work-place new-list-message-item upload_file_file_list">
@@ -206,13 +257,8 @@ $query = new WP_Query( $args );
                     <div class="conversation-typing-wrap">
 						<?php if ( $post->post_status == 'close' && ( $user_ID == $post->post_author || $user_ID == $bid->post_author ) ) { ?>
                             <form class="fre-workspace-form">
-                                <div class="conversation-typing">
-									<textarea name="comment_content" class="content-chat"
-                                              placeholder="<?php _e( 'Your message here...', ET_DOMAIN ); ?>"></textarea>
-                                    <input type="hidden" name="comment_post_ID" value="<?php echo $post->ID; ?>"/>
-                                </div>
-                                <div class="conversation-submit-btn">
-                                    <label class="conversation-send-file-btn" for="conversation-send-file">
+								<div class="conversation-submit-btn file_cust">
+									<label class="conversation-send-file-btn" for="conversation-send-file">
                                         <div id="upload_file_container">
                                         <span class="et_ajaxnonce"
                                               id="<?php echo wp_create_nonce( 'file_et_uploader' ) ?>"></span>
@@ -223,11 +269,18 @@ $query = new WP_Query( $args );
                                                                                  aria-hidden="true"></i></a>
                                         </div>
                                     </label>
+								</div>
+                                <div class="conversation-typing mess_cust">
+									<textarea name="comment_content" class="content-chat"
+                                              placeholder="<?php _e( 'Your message here...', ET_DOMAIN ); ?>"></textarea>
+                                    <input type="hidden" name="comment_post_ID" value="<?php echo $post->ID; ?>"/>
+                                </div>
+                                <div class="conversation-submit-btn send_cust">
 
                                     <label class="conversation-send-message-btn disabled"
                                            for="conversation-send-message">
+										<?php _e( 'Send', ET_DOMAIN ); ?>
                                         <input id="conversation-send-message" type="submit">
-                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     </label>
                                 </div>
                             </form>
@@ -237,159 +290,41 @@ $query = new WP_Query( $args );
                     </div>
                 </div>
             </div>
+		</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="workspace-project-box">
+    <div class="row">
+        <div class="col-md-8">
+            
         </div>
         <div class="col-md-4">
-            <div class="workspace-files-wrap">
-				<div id="workspace-time" class="workspace-time tab-pane fade">
-					<?php 
-					global $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
-					$user_role = ae_user_role( $current_user->ID );
-					$post_object    = $ae_post_factory->get( PROJECT );
-					$convert        = $project = $post_object->convert( $post );
-					$project_status = $project->post_status;
-					if($project_status == 'close') {
-					if ( fre_share_role() || $user_role == FREELANCER ) { ?>
-					<h2 class="workspace-title"><?php echo __( "Project add time", ET_DOMAIN ); ?></h2>
-					<form id="add_time" novalidate="" enctype="multipart/form-data">
-						<?php 
-						$postID = get_the_ID();
-						?>
-						<div class="freelancer-save">
-							<input type="hidden" name="id_project" id="id_project" value="<?php echo $postID; ?>">
-							<label class="fre-field-title">
-								<?php _e('Elapsed time', ET_DOMAIN);?>
-								<input type="number" name="time_project" id="time_project" required>
-							</label>
-							<input type="submit" class="fre-normal-btn fre-btn" name="" style="width: 100%" value="<?php _e('Add', ET_DOMAIN);?>">
-						</div>
-					</form>
-					<?php } ?>
-					<?php } ?>
-					<?php 
-					$postID = get_the_ID();
-					$addTimeDate = get_post_meta( $postID, 'date_time_project');
-					if($addTimeDate) { 
-					?>
-					<div class="added_time">
-						<h3 class="workspace-title"><?php echo __( "Project added time", ET_DOMAIN ); ?></h3>
-						<?php 
-						if($addTimeDate) {
-							foreach ( $addTimeDate as $key => $value ) {
-							$time = stristr($value, "|");
-							$time=str_replace('|','',$time);
-							$time = stristr($time, "-", true);
-							$timeDigit = $time;
-							$timePay = stristr($value, "-");
-							?>
-								<?php if($timePay[1] == 'U') { ?>
-								<p><span class="time"><?php echo $time; ?>/h</span> - <span class="paytime unpaid"><?php _e('Not paid', ET_DOMAIN);?></span></p>
-								<?php } elseif($timePay[1] == 'P') { ?>
-								<p><span class="time"><?php echo $time; ?>/h</span> - <span class="paytime paid"><?php _e('Paid', ET_DOMAIN);?></span></p>
-								<?php } ?>
-							<?php } ?>
-						<?php } ?>
-					</div>
-					<?php } ?>
-				</div>
-
-				<?php
-				if ( function_exists( 'ae_query_milestone' ) && $query->have_posts() ) { ?>
-                    <div id="workspace-milestone" class="workspace-milestone tab-pane fade">
-                        <h2 class="workspace-title"><?php echo __( "Project milestones", ET_DOMAIN ); ?></h2>
-						<?php do_action( 'after_sidebar_single_project_workspace', $post ); ?>
-                    </div>
-				<?php } ?>
-
-                <div id="workspace-files" class="workspace-files tab-pane fade workplace-project-details">
-                    <div class="content-require-project content-require-project-attachment active">
-                        <h2 class="workspace-title"><?php _e( 'Project Files', ET_DOMAIN ); ?></h2>
-						<?php
-
-						// Attachment file in workspace
-						$attachment_comments = get_comments( array(
-							'post_id'    => $post->ID,
-							'meta_query' => array(
-								array(
-									'key'     => 'fre_comment_file',
-									'value'   => '',
-									'compare' => '!='
-								)
-							)
-						) );
-						$attachments         = array();
-						foreach ( $attachment_comments as $key => $value ) {
-							$file_arr = get_comment_meta( $value->comment_ID, 'fre_comment_file', true );
-							if ( is_array( $file_arr ) ) {
-								$attachment  = get_posts( array(
-									'post_type' => 'attachment',
-									'post__in'  => $file_arr
-								) );
-								$attachments = wp_parse_args( $attachments, $attachment );
-							}
-						}
-						$attachments = array_reverse( $attachments );
-						$lock_class  = '';
-						if ( empty( $attachments ) ) {
-							$lock_class = 'lock-btn-disabled';
-						}
-
-
-						if ( $post->post_status == 'close' && ( fre_share_role() || ae_user_role() == FREELANCER ) ) {
-							if ( $lock_file != 'lock' ) { ?>
-                                <div class="workplace-title-arrow file-container" id="file-container"
-                                     style="font-size: 0;">
-                                    <div id="apply_docs_container">
-                                    <span class="et_ajaxnonce"
-                                          id="<?php echo wp_create_nonce( 'file_et_uploader' ) ?>"></span>
-                                        <span class="project_id" data-project="<?php echo $post->ID ?>"></span>
-                                        <span class="author_id" data-author="<?php echo $user_ID ?>"></span>
-                                        <a href="#" class="workspace-add-files attack attach-file"
-                                           id="apply_docs_browse_button"><i
-                                                    class="fa fa-plus"></i><span><?php _e( 'Add file', ET_DOMAIN ); ?></span></a>
-                                    </div>
-                                </div>
-							<?php }
-						} else if ( $post->post_status == 'close' && ( fre_share_role() || ( ae_user_role() == EMPLOYER || $post->post_author == $user_ID ) ) ) {
-							echo '<div class="lock-btn-wrapper">';
-							if ( $lock_file == 'lock' ) {
-								echo '<a href="#" class="lock-file-upload-btn" data-action="unlock" data-project-id="' . $post->ID . '"><i class="fa fa-unlock"></i>' . __( 'Unlock files', ET_DOMAIN ) . '</a>';
-							} else {
-								echo '<a href="#" class="lock-file-upload-btn ' . $lock_class . '" data-action="lock" data-project-id="' . $post->ID . '"><i class="fa fa-lock"></i>' . __( 'Lock file', ET_DOMAIN ) . '</a>';
-							}
-							echo '</div>';
-						}
-						?>
-                        <ul class="workspace-files-list" id="workspace_files_list">
-							<?php
-
-							if ( ! empty( $attachments ) ) {
-								foreach ( $attachments as $key => $value ) {
-									$comment_file_id = get_post_meta( $value->ID, 'comment_file_id', true ); ?>
-                                    <li class="attachment-<?php echo $value->ID; ?>">
-                                        <p><?php echo $value->post_title ?>
-                                            <span>
-							            <?php
-							            if ( $post->post_status == 'close' && $value->post_author == $user_ID && ! $value->post_parent && ( fre_share_role() || ae_user_role() == FREELANCER ) ) {
-								            echo '<a href="' . $value->guid . '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>';
-								            if ( $lock_file != 'lock' ) {
-									            echo '<a href="#" data-post-id="' . $value->ID . '" data-project-id="' . $post->ID . '" data-file-name="' . $value->post_title . '" class="delete-attach-file"><i class="fa fa-times" aria-hidden="true" data-post-id="' . $value->ID . '" data-project-id="' . $post->ID . '" data-file-name="' . $value->post_title . '"></i></a>';
-								            }
-							            } else {
-								            echo '<a href="' . $value->guid . '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>';
-							            }
-							            ?>
-                                    </span>
-                                        </p>
-                                        <span><?php echo get_the_date( 'F j, Y g:i A', $value->ID ); ?></span>
-                                    </li>
-								<?php }
-							} else {
-								_e( '<li class="no_file_upload"><i>No files have been uploaded.</i></li>', ET_DOMAIN );
-							} ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>

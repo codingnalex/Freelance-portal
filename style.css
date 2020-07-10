@@ -1123,9 +1123,776 @@ body .step_custom .last_btn:hover {
     margin-bottom: 0;
     padding-bottom: 0;
 }
+#new_progect_block .projectposted {
+    margin-top: 5px;
+}
 #new_progect_block .sbtl_pr.employer span.since {
     margin-top: 20px;
 }
 #new_progect_block .sbtl_pr.slect_fr span {
     margin-top: 10px;
+}
+/*-------------CONTINUE BLOCK--------------*/
+.continue_block {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(59, 59, 59, 0.4);
+    z-index: 99999;
+    display: inline-block;
+    text-align: center;
+}
+.cont_bl {
+    display: inline-block;
+    width: 100%;
+    max-width: 812px;
+    box-shadow: 0px 0px 18.24px 5.76px rgba(0, 0, 0, 0.23);
+    margin-top: 10%;
+}
+.content_continue {
+    background: #fff;
+    display: inline-block;
+    width: 100%;
+    padding: 40px 50px;
+}
+.content_continue h3 {
+    color: #000;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+}
+.content_continue h3 span {
+    color: #f05c22;
+}
+.content_continue p {
+    font-size: 16px;
+    color: #000;
+    text-align: left;
+    margin-bottom: 25px;
+}
+#not_freelancer button {
+    float: left;
+    background: none;
+    color: #f05c22;
+    border: none;
+    padding: 0;
+}
+#not_freelancer button:hover {
+	opacity: 0.7;
+    color: #f05c22!important;
+}
+#continue button {
+    background: #006BB4;
+    border: none;
+    padding: 10px 30px;
+    line-height: initial;
+    float: right;
+}
+#continue button:hover {
+	opacity: 0.7;
+}
+.form_cont {
+    display: inline-block;
+    width: 100%;
+    margin-top: 30px;
+}
+/*--------WORKSPACE--------*/
+.custom_detail_box_top {
+    display: inline-block;
+    width: 70%;
+    background: #F9F9F9;
+    border-radius: 0px;
+    min-height: 210px;
+    padding-top: 55px;
+	padding-left: 55px;
+}
+.right_progect.project_cuctom_work {
+    display: inline-block;
+    width: 30%;
+    float: right;
+    border: 1px solid #ededed;
+	background: #F9F9F9;
+}
+.right_progect.project_cuctom_work {
+    padding-top: 25px;
+}
+.right_progect.project_cuctom_work .sbtl_pr span {
+    margin-bottom: 30px;
+}
+.project_cuctom_work .sbtl_pr {
+    padding-left: 40px;
+    padding-right: 40px;
+    position: relative;
+}
+.project_cuctom_work .sbtl_pr:after {
+    left: 40px;
+}
+.project_cuctom_work .sbtl_pr span p {
+    color: #101010;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+.project_cuctom_work .sbtl_pr span p a {
+    margin-left: 5px;
+}
+.project_cuctom_work .sbtl_pr span.project-detail-posted {
+    text-align: left;
+    color: #000;
+    font-size: 16px;
+}
+.project_cuctom_work .sbtl_pr.work_r_bl i {
+    -moz-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    -webkit-transform: rotate(40deg);
+    -o-transform: rotate(40deg);
+    transform: rotate(40deg);
+    margin-left: -5px;
+    position: relative;
+    top: -3px;
+    left: -3px;
+}
+.project_cuctom_work .sbtl_pr.work_r_bl a, .sbtl_pr.work_r_bl i {
+    font-weight: 400;
+}
+.last_first_user p {
+    color: #101010;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.custom_detail_box_top .avatar_user {
+    display: inline-block;
+    float: left;
+    width: 50px;
+}
+.custom_detail_box_top .last_first_user {
+    display: inline-block;
+    float: left;
+    margin-left: 60px;
+    padding-top: 5px;
+}
+.custom_detail_box_top .us_loc_inf {
+    font-size: 14px;
+    color: #5D5D5D;
+    display: inline-block;
+}
+.custom_detail_box_top .us_loc_inf span {
+    font-weight: 400;
+}
+.custom_detail_box_top .us_loc_inf .locat_user {
+    font-weight: 600;
+}
+.tabs_workspace .tabs .active { 
+	color: #F15C22; 
+	border-bottom: solid 3px;
+}
+.tab_item { 
+	display: none; 
+}
+.tab_item:first-child { 
+	display: block; 
+}
+.tabs span {
+    color: #000;
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+    padding: 15px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+.tabs_workspace {
+    width: 70%;
+    float: left;
+    margin-top: -59px;
+    z-index: 2;
+    position: relative;
+}
+.tabs_workspace .tabs {
+    padding-left: 40px;
+}
+.conversation-submit-btn.send_cust {
+    float: right;
+    display: inline-block;
+    width: 150px;
+}
+.conversation-submit-btn.send_cust label {
+    background: #E0E0E0;
+    padding: 0px;
+    position: inherit;
+    float: right;
+    display: inline-block;
+    width: 150px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #828282;
+    height: 50px;
+    line-height: 50px;
+    bottom: 0;
+    right: 0;
+}
+.conversation-typing.mess_cust {
+    display: inline-block;
+    float: left;
+    width: 73%;
+    padding: 0;
+    min-height: 50px;
+    max-height: 50px;
+	border: none;
+}
+.conversation-submit-btn.file_cust {
+    display: inline-block;
+    float: left;
+    width: 50px;
+    border-right: 1px solid #ededed;
+    height: 50px;
+    border-left: 1px solid #ededed;
+}
+.conversation-submit-btn.file_cust label {
+    position: inherit;
+    bottom: -10px;
+    left: 10px;
+}
+.tab_item .list-chat-work-place-wrap {
+    max-height: 410px;
+    background: #fff;
+    border-left: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+.tab_item #workspace-conversation {
+    border: none;
+    box-shadow: none;
+    background: #F9F9F9;
+    height: 479px;
+    border-bottom: 1px solid #ededed;
+}
+.tab_item .conversation-typing-wrap {
+    border-top: 1px solid #ededed;
+}
+.tab_item .conversation-typing textarea {
+	height: 50px!important;
+    padding: 15px!important;
+}
+.tab_item .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background: #F15C22;
+}
+.tab_item .workspace-files-wrap {
+    height: 478px!important;
+}
+.tab_item #workspace-time h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+    margin-top: -40px;
+    color: #F15C22;
+    font-size: 16px;
+}
+.tab_item #workspace-time h2 span {
+    font-weight: 200;
+    font-size: 36px;
+    position: relative;
+    top: 7px;
+}
+.tab_item .freelancer-save {
+    display: inline-block;
+    float: left;
+    margin-top: 35px;
+}
+.tab_item #add_time label p {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 0px;
+    font-weight: 400;
+}
+.tab_item #add_time #time_project {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    font-weight: 500;
+    height: 50px;
+}
+.tab_item #add_time label {
+    width: 65%;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.tab_item #add_time .fre-btn {
+    float: right;
+    display: inline-block;
+    max-width: 95px;
+    margin-top: 24px;
+    height: 50px;
+}
+.tab_item .added_time h3 {
+    margin: 5px 0;
+    padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 700;
+    border-top: 1px solid #ededed;
+    border-bottom: none;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding-top: 30px;
+}
+.tab_item .added_time .paytime.unpaid {
+    color: #24346d;
+}
+.tab_item .added_time .paytime.paid {
+    color: #F15C22;
+}
+.tab_item .added_time span.time {
+    display: inline;
+    float: left;
+    width: 85px;
+    font-weight: 400;
+    color: #5D5D5D;
+}
+.tab_item .added_time p {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+    margin-bottom: 15px;
+}
+/*-------- MY PROFILE PAGE-------------*/
+#my_profile .employer-avatar-review {
+    width: 100px;
+    height: 100px;
+}
+#my_profile .custom_detail_box_top .last_first_user {
+    margin-left: 110px;
+    padding-top: 20px;
+}
+#my_profile .custom_detail_box_top {
+    background: #fff;
+    box-shadow: none;
+    border: 1px solid #ededed;
+	border-right: none;
+}
+#my_profile .other_box .fre-profile-box {
+    box-shadow: none;
+    border: 1px solid #ededed;
+    border-right: none;
+}
+#my_profile .profile-freelance-available {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+#my_profile .fre-switch .fre-switch-slider {
+    background-color: #F15C22;
+    border-radius: 25px;
+}
+#my_profile .fre-switch .fre-switch-slider:before {
+    height: 20px;
+    width: 20px;
+    top: 7px;
+    left: 7px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: none;
+}
+#my_profile .fre-switch {
+    width: 70px;
+    height: 35px;
+}
+#my_profile .fre-switch input:checked+.fre-switch-slider:before {
+    -webkit-transform: translateX(35px);
+    -ms-transform: translateX(35px);
+    transform: translateX(35px);
+}
+#my_profile .fre-switch input:checked+.fre-switch-slider {
+    background-color: #24346d;
+}
+#my_profile .fre-switch input:checked+.fre-switch-slider:after {
+    content: 'ON';
+    color: #fff;
+    font-size: 10px;
+    top: 11px;
+    position: absolute;
+    font-weight: 400;
+    left: 15px;
+}
+#my_profile .fre-switch .fre-switch-slider:after {
+    content: 'OFF';
+    color: #fff;
+    font-size: 10px;
+    top: 11px;
+    position: absolute;
+    font-weight: 400;
+    left: 37px;
+}
+#my_profile .fre-input-field.my_switch {
+    position: absolute;
+    right: 45px;
+    top: -5px;
+}
+#my_profile .profile-freelance-available span {
+    margin-top: 25px;
+}
+#my_profile .content_dop {
+    margin-top: 15px;
+}
+#my_profile .rate-it .fa-star-o:before {
+    color: #F15C22!important;
+}
+#my_profile .sbtl_pr .rate-it i {
+    color: #F15C22;
+    font-weight: 300;
+    font-size: 20px;
+    display: inline-flex;
+    float: left;
+    width: 10px;
+    margin-right: 14px;
+    height: 35px;
+}
+#my_profile .freelance-hourly {
+    padding: 0;
+}
+#my_profile .freelance-rating span {
+    margin: 0;
+    padding-bottom: 0;
+    color: #000;
+    margin-bottom: 0px;
+}
+#my_profile .freelance-hourly span {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+#my_profile .fre-view-as-others {
+    position: relative;
+    margin: 0;
+    padding: 10px 0px;
+    top: 0;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+#my_profile span.freelance-empty-info {
+    margin-bottom: 10px;
+}
+#my_profile .freelance-rating .total_progect {
+    margin-bottom: 40px;
+}
+#my_profile .sbtl_pr.scils span {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    width: auto;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    margin-right: 5px;
+    margin-top: 0;
+	margin-bottom: 5px;
+}
+#my_profile .profile-show-edit-tab-btn {
+    border: none;
+    padding: 0;
+    width: 25px;
+    margin: 0;
+    height: 25px;
+    max-width: 25px;
+    min-width: 25px;
+    background: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#my_profile .profile-show-edit-tab-btn i {
+    transform: none!important;
+    top: 7px;
+    left: 6px;
+	font-weight: 400;
+	position: relative;
+	font-size: 18px;
+}
+#my_profile .profile-show-edit-tab-btn:after {
+    display: none;
+}
+#my_profile .profile-show-edit-tab-btn i:after {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: #F15C22;
+    position: absolute;
+    left: -1px;
+    bottom: 14px;
+}
+#my_profile .project-detail-skill {
+    padding-bottom: 25px;
+}
+#my_profile .profile-employer-secure {
+    margin-top: 0;
+}
+#my_profile .profile-secure-code-wrap {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+#my_profile .profile-secure-code-wrap a {
+    margin-top: 5px;
+}
+#my_profile .profile-employer-secure span {
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+#my_profile .profile-employer-secure-wrap {
+    position: relative;
+    padding: 0;
+}
+#my_profile .pay_edit {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+#my_profile .pay_info .pay_edit p {
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+#my_profile .pay_edit span {
+    margin-bottom: 0;
+}
+#my_profile .pay_info p {
+    margin-bottom: 20px;
+}
+#my_profile .pay_edit.stripe {
+    padding-bottom: 20px;
+}
+#my_profile .top_info_user {
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+}
+#my_profile .fre_about {
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+    margin-top: 30px;
+    padding: 20px 0;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+#my_profile a {
+	color: #F15C22;
+}
+#my_profile a:after {
+    display: none;
+}
+#my_profile .fa-pencil {
+    transform: none!important;
+    top: 7px;
+    left: 6px;
+    font-weight: 400;
+    color: #F15C22;
+    position: relative;
+    font-size: 18px;
+}
+#my_profile .fa-pencil:after {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: #F15C22;
+    position: absolute;
+    left: -1px;
+    bottom: 14px;
+}
+#my_profile .free_hour {
+    display: inline-block;
+    float: right;
+    font-size: 24px;
+    color: #F15C22;
+    font-weight: 600;
+    margin-top: 33px;
+    margin-right: 40px;
+}
+#my_profile .free_hour b {
+    font-weight: 600;
+}
+#my_profile .top_edit .profile-show-edit-tab-btn i:after {
+    bottom: -3px;
+}
+#my_profile .employer-info-edit.top_edit {
+    top: 22px;
+}
+#my_profile #blockMyVideo {
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    margin-top: 30px;
+}
+#my_profile #blockMyVideo h2 {
+    margin-bottom: 25px;
+    color: #101010;
+    font-size: 18px;
+    font-weight: 600;
+}
+#my_profile #blockMyVideo .vidoe_container img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+}
+#my_profile #blockMyVideo .vidoe_info {
+    height: 270px;
+}
+#my_profile #blockMyVideo .vidoe_container video {
+    width: 100%;
+    height: 270px;
+}
+#my_profile #blockMyVideo .vidoe_info div span {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+#my_profile #blockMyVideo .vidoe_info .btn_group_video {
+    position: absolute;
+    right: 0;
+    top: -55px;
+    margin-bottom: 0;
+    left: auto;
+    float: none;
+    bottom: inherit;
+    width: auto;
+}
+#my_profile #blockMyVideo .vidoe_info .btn_group_video a {
+    border: none;
+    background: none;
+    transition: none!important;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+    margin: 0;
+    padding: 0;
+}
+#my_profile #blockMyVideo .vidoe_info .btn_group_video .fa-pencil:after {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: #F15C22;
+    position: absolute;
+    left: -1px;
+    bottom: -3px;
+}
+#my_profile .other_box {
+    display: inline-block;
+    width: 100%;
+    float: left;
+    margin-top: 15px;
+}
+#my_profile .left_box {
+    display: inline-block;
+    width: 70%;
+    float: left;
+}
+#my_profile .custom_detail_box_top {
+    display: inline-block;
+    width: 100%;
+}
+#my_profile .right_box {
+    display: inline-block;
+    float: right;
+    width: 30%;
+}
+#my_profile .right_progect.project_cuctom_work {
+    display: inline-block;
+    width: 100%;
+}
+#my_profile {
+    margin-top: 30px;
+}
+#my_profile .fa.fa-plus:after {
+    content: '';
+    width: 26px;
+    height: 26px;
+    background: none;
+    position: absolute;
+    border: solid 1px #F15C22;
+    left: -7px;
+    bottom: -3px;
+    border-radius: 50%;
+}
+#my_profile .fa-plus:before {
+    content: "+";
+    font-size: 22px;
+    font-weight: 600;
+}
+#my_profile .add-portfolio {
+    border: none;
+    padding: 0;
+    width: 25px;
+    margin: 0;
+    height: 25px;
+    max-width: 25px;
+    min-width: 25px;
+    background: none;
+	transition: none!important;
+}
+#my_profile .freelance-portfolio-add .fre-normal-btn-o {
+    min-width: 25px;
+}
+#my_profile .freelance-portfolio-add .fa.fa-plus:after {
+    left: -1px;
+    bottom: -2px;
+}
+#my_profile .freelance-portfolio-add {
+    float: right;
+    position: relative;
+    width: 25px;
+    margin-right: -20px;
+}
+#my_profile .freelance-experience-wrap h3, #my_profile .freelance-certificate-wrap h3, #my_profile .freelance-education-wrap h3 {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+#my_profile .freelance-experience-wrap h4, #my_profile .freelance-certificate-wrap h4, #my_profile .freelance-education-wrap h4 {
+    color: #F15C22;
+    font-weight: 600;
+}
+#my_profile .freelance-experience-wrap p, #my_profile .freelance-certificate-wrap p, #my_profile .freelance-education-wrap p {
+    line-height: 20px;
+    font-size: 16px;
+}
+#my_profile .freelance-experience-action .profile-show-edit-tab-btn {
+    margin-top: -13px;
+}
+#my_profile #ctn-edit-account {
+    margin: 0;
+}
+#my_profile #ctn-edit-account .fre-input-field {
+    padding: 0;
+}
+#my_profile #ctn-edit-account .employer-info-save.btn-update-profile {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    float: left;
+}
+#my_profile #ctn-edit-account .employer-info-save .fre-normal-btn.fre-btn {
+    width: 100px;
+    max-width: 100px;
+    margin-bottom: 20px;
+}
+#my_profile #ctn-edit-account .employer-info-save .employer-info-cancel-btn.profile-show-edit-tab-btn {
+    margin-top: 12px;
+    margin-right: 25px;
+}
+#my_profile .profile-employer-info-edit .employer-info-cancel-btn {
+    margin-right: 25px;
+}
+.authorpage .free_hour {
+    margin-right: 5px!important;
+}
+#my_profile .freelance-education-action, #my_profile .freelance-certificate-action {
+    position: relative;
+}
+#my_profile .freelance-education-action .profile-show-edit-tab-btn, #my_profile .freelance-certificate-action .profile-show-edit-tab-btn {
+    margin-top: -15px;
+}
+#my_profile .blackspan span {
+    font-weight: 600;
+    padding-bottom: 8px!important;
 }

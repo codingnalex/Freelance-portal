@@ -41,7 +41,32 @@ global $current_user;
 </head>
 
 <body <?php body_class(); ?>>
-
+	<?php
+	$current_user = wp_get_current_user();
+	
+	if($current_user->user_customrole == 'freelancer') {
+	?>
+	<div class="continue_block">
+		<div class="cont_bl">
+			<img src="/wp-content/uploads/2020/06/cont_top.jpg">
+			<div class="content_continue">
+				<h3><?php _e('Join VIRTUAL PM as a ', ET_DOMAIN);?><span><?php _e('freelancer', ET_DOMAIN);?></span></h3>
+				<p><?php _e('Hi ', ET_DOMAIN);?><?php echo $current_user->user_firstname; ?>,</p>
+				<p><?php _e('Thanks for your interest in Virtual PM! We connect millions of businesses with independent professionals like you.', ET_DOMAIN);?></p>
+				<p><?php _e('To get started, all you need to do is fill out a profile.', ET_DOMAIN);?></p>
+				<div class="form_cont">
+					<!--<form role="form" id="not_freelancer" novalidate="novalidate">
+						<button class="fre-submit-btn btn-submit last_btn"><?php // _e('NOT A FREELANCER?', ET_DOMAIN);?></button>
+					</form>-->
+					<form role="form" id="continue" novalidate="novalidate">
+						<button class="fre-submit-btn btn-submit last_btn"><?php _e('CONTINUE', ET_DOMAIN);?></button>
+					</form>
+					<div class="submit-completed"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
 	<!-- <div class="fre-wrapper"> -->
 	<header class="fre-header-wrapper">
 		<div class="fre-header-wrap" id="main_header">

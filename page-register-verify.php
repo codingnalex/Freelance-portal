@@ -37,8 +37,17 @@ if ($user->description == $key) {
 						<div class="fre-input-field icon_left pass">
 							<input type="text" name="pass_user" id="pass_user" placeholder="<?php _e('Create A Password', ET_DOMAIN);?>">
 						</div>
+						<script src="https://maps.googleapis.com/maps/api/js?&language=en&key=AIzaSyDRy8ivYa3SZEbUal9lK12LSSjenCDN3Ms&libraries=places"></script>
 						<div class="fre-input-field icon_left location">
 							<input type="text" name="location_user" id="location_user" placeholder="<?php _e('Select Your Location', ET_DOMAIN);?>">
+							<script>
+							function initialize() {
+							  var input = document.getElementById('location_user');
+							  new google.maps.places.Autocomplete(input);
+							}
+
+							google.maps.event.addDomListener(window, 'load', initialize);
+							</script>
 						</div>
 						<div class="bt_bl_compl">
 							<span><?php _e('I WANT TO:', ET_DOMAIN);?></span>
@@ -59,12 +68,14 @@ if ($user->description == $key) {
 							<label>
 								<p class="ifcheck privacy"></p>
 								<input type="checkbox" name="privacy" id="privacy">
-								<span><?php _e('Yes, I understand and agree to the Virtual PM', ET_DOMAIN);?><a href="#">Terms of Service</a><?php _e(', including the ', ET_DOMAIN);?><a href="#">User Agreement</a><?php _e(' and ', ET_DOMAIN);?><a href="#">Privacy Policy.</a></span>
+								<span><?php _e('Yes, I understand and agree to the Virtual PM ', ET_DOMAIN);?><a href="#">Terms of Service</a><?php _e(', including the ', ET_DOMAIN);?><a href="#">User Agreement</a><?php _e(' and ', ET_DOMAIN);?><a href="#">Privacy Policy.</a></span>
 							</label>
 							<input type="hidden" name="user_role" id="user_role" value="employer">
 							<input type="hidden" name="user_email" id="user_email" value="<?php echo $email; ?>">
 						</div>
 						<div class="fre-input-field">
+							<?php $ip = $_SERVER['REMOTE_ADDR']; ?>
+							<input type="hidden" name="user_ipadr" id="user_ipadr" value="<?php echo $ip; ?>">
 							<button class="fre-submit-btn btn-submit last_btn"><?php _e('CREATE MY ACCOUNT', ET_DOMAIN);?></button>
 						</div>
 						<div id="submit-completed"></div>

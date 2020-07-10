@@ -15,6 +15,8 @@ $user_role = ae_user_role( $user_ID );
 $et_expired_date = $convert->et_expired_date;
 $bid_accepted    = $convert->accepted;
 $project_status  = $convert->post_status;
+$user_location   = get_user_meta( $post->post_author, 'user_location', true );
+$user_ipadr   = get_user_meta( $post->post_author, 'user_ipadr', true );
 
 $profile_id   = get_user_meta( $post->post_author, 'user_profile_id', true );
 $project_link = get_permalink( $post->ID );
@@ -207,25 +209,27 @@ $cur_user_id = get_current_user_id();
 			?>
 		</div>
 		<div class="content_dop">
-			<div class="sbtl_pr slect_fr">
-				<p><?php _e( 'Selected Freelancers', ET_DOMAIN ); ?></p>
-				<?php
-				$progect_freelancer = get_user_meta( $project->et_freelancerselect);
-				$postID = get_the_ID();
-				?>
-				<span><?php echo $progect_freelancer['first_name'][0] . ' ' .$progect_freelancer['last_name'][0]; ?></span>
-				<?php
-				$selectFree = get_post_meta($postID, 'freelancerselectmultiple', true);
-				$nameFreelancer = get_users( [
-					'include' => $selectFree,
-				] );
-				if($selectFree) {
-				foreach( $nameFreelancer as $user ) {
-				?>
-					<span><?php echo  ', ' . $user->first_name . ' ' . $user->last_name; ?></span>
+			<?php
+			$progect_freelancer = get_user_meta( $project->et_freelancerselect);
+			$postID = get_the_ID();
+			?>
+			<?php if($progect_freelancer) { ?>
+				<div class="sbtl_pr slect_fr">
+					<p><?php _e( 'Selected Freelancers', ET_DOMAIN ); ?></p>
+					<span><?php echo $progect_freelancer['first_name'][0] . ' ' .$progect_freelancer['last_name'][0]; ?></span>
+					<?php
+					$selectFree = get_post_meta($postID, 'freelancerselectmultiple', true);
+					$nameFreelancer = get_users( [
+						'include' => $selectFree,
+					] );
+					if($selectFree) {
+					foreach( $nameFreelancer as $user ) {
+					?>
+						<span><?php echo  ', ' . $user->first_name . ' ' . $user->last_name; ?></span>
+						<?php } ?>
 					<?php } ?>
-				<?php } ?>
-			</div>
+				</div>
+			<?php } ?>
 			<div class="sbtl_pr short">
 				<p><?php _e('Short Term Work', ET_DOMAIN);?></p>
 				<span>
@@ -252,10 +256,17 @@ $cur_user_id = get_current_user_id();
 				}
 				?>
 			</div>
+			<?php
+			$ip = $user_ipadr;
+			$ipInfo = file_get_contents('http://ip-api.com/json/' . $ip);
+			$ipInfo = json_decode($ipInfo);
+			$timezone = $ipInfo->timezone;
+			date_default_timezone_set($timezone);
+			?>
 			<div class="sbtl_pr employer">
 				<p><?php _e('Employer Information', ET_DOMAIN);?></p>
 				<span class="rate-it" data-score="<?php echo $rating['rating_score']; ?>"></span>
-				<span><i class="fa fa-map-marker" aria-hidden="true"></i>United Arab Emirates, Dubai 06:09 pm</span>
+				<span><i class="fa fa-map-marker" aria-hidden="true"></i><?php if($user_location) { echo $user_location; } ?> <?php echo date('g:i a'); ?></span>
 				<span class="projectposted"><?php printf( __( '%s project(s) posted', ET_DOMAIN ), fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed", "archive" ', true ) ); ?></span>
 				<span><?php printf( __( 'hire %s freelancers', ET_DOMAIN ), $hire_freelancer ); ?></span>
 				<span class="since">

@@ -1,3 +1,119 @@
+jQuery(function () {
+	var height = jQuery(".left_box").height();
+	jQuery(".right_box .right_progect").css('height', height);
+});
+/*-------TABS----------*/
+jQuery(".tabs_workspace .tab").click(function() {
+	jQuery(".tabs_workspace .tab").removeClass("active").eq(jQuery(this).index()).addClass("active");
+	jQuery(".tab_item").hide().eq(jQuery(this).index()).fadeIn()
+}).eq(0).addClass("active");
+/*--------CONTINUE---------*/
+jQuery(function () {
+	jQuery("#continue button").on("click", function (e) {
+		e.preventDefault();
+		jQuery.ajax({
+			url: "/wp-admin/admin-ajax.php",
+			method: 'post',
+			data: {
+				action: 'ajax_continueform',
+			},
+			success: function (response) {
+				jQuery('.submit-completed').html(response);
+				if(jQuery('.submit-completed').html() === "Done") {
+					window.location.href = '/profile-3/';
+				}
+			}
+		});
+	});
+});
+
+/*--------NOT FREELANCER---------*/
+jQuery(function () {
+	jQuery("#not_freelancer button").on("click", function (e) {
+		e.preventDefault();
+		jQuery.ajax({
+			url: "/wp-admin/admin-ajax.php",
+			method: 'post',
+			data: {
+				action: 'ajax_notfreelancer',
+			},
+			success: function (response) {
+				jQuery('.submit-completed').html(response);
+				if(jQuery('.submit-completed').html() === "Done") {
+					window.location.href = '/profile-3/';
+				}
+			}
+		});
+	});
+});
+
+/*-------SELECT PROJECT---------*/
+jQuery(document).ready(function () {
+	jQuery('#fre-project-name').change(function () {
+		var prtitle = jQuery('option:selected',this).data('prtitle');
+		var activelimit = jQuery('option:selected',this).data('activelimit');
+		var budget = jQuery('option:selected',this).data('budget');
+		var groupseejob = jQuery('option:selected',this).data('groupseejob');
+		var freelancerselect = jQuery('option:selected',this).data('freelancerselect');
+		var groupwork = jQuery('option:selected',this).data('groupwork');
+		var content = jQuery('option:selected',this).data('content');
+		
+		jQuery('#et_groupwork input').each(function() {
+			var group_work = jQuery(this).val();
+			if(group_work === groupwork) {
+			   jQuery(this).attr('checked', 'checked');
+			}
+		});
+		
+		jQuery('#et_groupwork .block_radio').each(function () {
+			if(jQuery(this).data('radio') === groupwork ) {
+				jQuery(this).addClass('active_check');
+			}
+		});
+		
+		jQuery('#fre-project-title').val(prtitle);
+		
+		tinyMCE.activeEditor.setContent(content);
+		
+		jQuery('#post_content').val(content);
+		
+		jQuery('#et_group_see_job input').each(function() {
+			var see_job = jQuery(this).val();
+			if(see_job === groupseejob) {
+			   jQuery(this).attr('checked', 'checked');
+			}
+		});
+		
+		jQuery('#et_group_see_job .block_radio').each(function () {
+			if(jQuery(this).data('radio') === groupseejob ) {
+				jQuery(this).addClass('active_check');
+			}
+		});
+		
+		jQuery('#project-budget').val(budget);
+		
+		if(activelimit) {
+			jQuery('#active_limit').attr('checked', 'checked');
+			jQuery('#hours_limit').val(activelimit);
+		}
+		
+		if(jQuery('#active_limit').is(':checked')) {
+			jQuery('.active_limit_p').addClass('limit_check');
+			jQuery('#hours_limit').prop('disabled', false);
+		}
+		
+		//jQuery("#freelancerSelect option").each(function(){
+//			if (jQuery(this).val() === freelancerselect) {
+//				jQuery(this).prop('selected', true);
+//			}
+//		});
+		
+		//jQuery("#freelancerSelect option[value='"+freelancerselect+"']").prop('selected', true);
+		
+		
+	});
+});
+/*----------------------*/
 jQuery(document).ready(function () {
 	var data = jQuery(".project-detail-action .fre-normal-btn.primary-bg-color").data('toggle');
 	if(data == 'modal') {
@@ -15,6 +131,7 @@ jQuery(function () {
 		var username_user = jQuery("#username_user").val();
 		var user_role = jQuery("#user_role").val();
 		var user_email = jQuery("#user_email").val();
+		var user_ipadr = jQuery("#user_ipadr").val();
 		if (first_name_user === '') {
 			jQuery("#first_name_user").addClass('required');
 		} else if (last_name_user === '') {
@@ -34,11 +151,12 @@ jQuery(function () {
 					username_user: username_user,
 					user_role: user_role,
 					user_email: user_email,
+					user_ipadr: user_ipadr,
 				},
 				success: function (response) {
 					jQuery('#submit-completed').html(response);
 					if(jQuery('#submit-completed').html() === "Done") {
-						window.location.href = '/login/';
+						window.location.href = '/profile-3/';
 					}
 				}
 			});
